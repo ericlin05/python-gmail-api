@@ -115,7 +115,7 @@ class GmailAPI:
         message['to'] = to
         message['from'] = sender
         message['subject'] = subject
-        encoded_message = {'raw': base64.urlsafe_b64encode(message.as_string())}
+        encoded_message = {'raw': base64.urlsafe_b64encode(message.as_string().encode("utf-8"))}
         return encoded_message
 
     def __create_message_with_attachment(self, sender, to, subject, message_text, attachments):
@@ -223,7 +223,7 @@ class GmailAPI:
         """
         if isinstance(attachments, list):
             self.attachments = attachments
-        elif isinstance(attachments, basestring):
+        elif isinstance(attachments, str):
             self.attachments = str(attachments).split(',')
         else:
             self.attachments = []
